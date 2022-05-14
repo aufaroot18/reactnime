@@ -18,10 +18,10 @@ const StyledNavbar = styled.nav`
 `;
 
 export default function Navbar() {
-  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [isNavbarActive, setIsNavbarActive] = useState(false);
 
   function handleNavbar() {
-    setIsNavbarOpen((prevState) => !prevState);
+    setIsNavbarActive((prevState) => !prevState);
   }
 
   return (
@@ -30,23 +30,7 @@ export default function Navbar() {
       <NavbarToggler onClick={handleNavbar}>
         <FaBars />
       </NavbarToggler>
-      <NavbarList block={isNavbarOpen}>
-        <NavbarItem>
-          <NavbarLink to="/">Home</NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink to="/anime">Anime</NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink to="/">Manga</NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink to="/collections">Collection</NavbarLink>
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarLink to="/">About</NavbarLink>
-        </NavbarItem>
-      </NavbarList>
+      <NavbarList active={isNavbarActive}></NavbarList>
     </StyledNavbar>
   );
 }
