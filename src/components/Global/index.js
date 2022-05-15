@@ -16,6 +16,23 @@ const styles = css`
 
   body {
     font-family: "Montserrat", sans-serif;
+    color: #073b4c;
+  }
+
+  h1 {
+    font-size: 3.052rem;
+  }
+
+  h2 {
+    font-size: 2.441rem;
+  }
+
+  h3 {
+    font-size: 1.953rem;
+  }
+
+  h4 {
+    font-size: 1.563rem;
   }
 `;
 
