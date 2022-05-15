@@ -6,10 +6,7 @@ const GET_ANIME = gql`
       media(sort: TRENDING_DESC) {
         id
         title {
-          romaji
           english
-          native
-          userPreferred
         }
         coverImage {
           extraLarge
@@ -17,9 +14,22 @@ const GET_ANIME = gql`
           medium
           color
         }
+        seasonYear
       }
     }
   }
 `;
 
-export { GET_ANIME };
+const GET_CHARACTERS = gql`
+  query {
+    characters {
+      results {
+        id
+        name
+        image
+      }
+    }
+  }
+`;
+
+export { GET_ANIME, GET_CHARACTERS };
