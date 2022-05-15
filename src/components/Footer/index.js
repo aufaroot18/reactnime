@@ -1,15 +1,18 @@
 import styled from "@emotion/styled";
 import { NavbarList } from "../Navbar";
+import Box from "../ui/Box";
+import Container from "../ui/Container";
 
 const StyledFooter = styled.footer`
   background-color: #073b4c;
   color: #fff;
-  padding: 1rem;
 
   @media screen and (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 `;
 
@@ -30,11 +33,13 @@ const Author = styled.h4`
 export default function Footer() {
   return (
     <StyledFooter>
-      <div>
-        <Brand>Reactnime</Brand>
-        <Author>Developed by aufa</Author>
-      </div>
-      <NavbarList active />
+      <Container>
+        <Box>
+          <Brand>Reactnime</Brand>
+          <Author>Developed by aufa</Author>
+        </Box>
+        <NavbarList active />
+      </Container>
     </StyledFooter>
   );
 }

@@ -6,15 +6,18 @@ import NavbarLink from "./NavbarLink";
 import NavbarList from "./NavbarList";
 import NavbarItem from "./NavbarItem";
 import NavbarToggler from "./NavbarToggler";
+import Container from "../ui/Container";
 
 const StyledNavbar = styled.nav`
   background-color: #06d6a0;
   color: #fff;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 `;
 
 export default function Navbar() {
@@ -26,11 +29,13 @@ export default function Navbar() {
 
   return (
     <StyledNavbar>
-      <Brand>Reactnime</Brand>
-      <NavbarToggler onClick={handleNavbar}>
-        <FaBars />
-      </NavbarToggler>
-      <NavbarList active={isNavbarActive}></NavbarList>
+      <Container>
+        <Brand>Reactnime</Brand>
+        <NavbarToggler onClick={handleNavbar}>
+          <FaBars />
+        </NavbarToggler>
+        <NavbarList active={isNavbarActive}></NavbarList>
+      </Container>
     </StyledNavbar>
   );
 }
