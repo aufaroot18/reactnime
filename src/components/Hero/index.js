@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import Box from "../ui/Box";
 import Button from "../ui/Button";
+import Heading from "../ui/Heading";
+import Paragraph from "../ui/Paragraph";
 
 const StyledHero = styled.section`
   text-align: center;
@@ -31,25 +33,6 @@ const Image = styled.img`
   }
 `;
 
-const Title = styled.h2`
-  font-size: 3.815rem;
-  color: #06d6a0;
-`;
-
-const SubTitle = styled.h3`
-  color: #64748b;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
-
-const Description = styled.p`
-  color: #64748b;
-  margin-bottom: 1.5rem;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
 export default function Hero() {
   return (
     <>
@@ -58,13 +41,17 @@ export default function Hero() {
           <Image src="https://picsum.photos/600/400" alt="hero" />
         </Box>
         <Box mb="2">
-          <Title>Reactnime</Title>
-          <SubTitle>Next-gen anime platform</SubTitle>
-          <Description>
+          <Heading variant="primary" fontSize="3.815">
+            Reactnime
+          </Heading>
+          <Heading as="h3" variant="gray" weight="500" mb="1">
+            Next-gen anime platform
+          </Heading>
+          <Paragraph mb="1.5" variant="gray" maxWidth="500">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia,
             facilis numquam. Beatae mollitia consequuntur quos commodi? In velit
             vel aliquam!
-          </Description>
+          </Paragraph>
           <Button>Join Now</Button>
         </Box>
       </StyledHero>
