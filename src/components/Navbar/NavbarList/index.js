@@ -23,13 +23,34 @@ const StyledNavbarList = styled.ul`
 `;
 
 function NavbarList({ active }) {
-  const menus = ["Home", "Anime", "Manga", "Collections", "About"];
+  const menus = [
+    {
+      name: "Home",
+      path: "/",
+    },
+    {
+      name: "Anime",
+      path: "anime",
+    },
+    {
+      name: "Manga",
+      path: "manga",
+    },
+    {
+      name: "Collections",
+      path: "collections",
+    },
+    {
+      name: "About",
+      path: "about",
+    },
+  ];
 
   return (
     <StyledNavbarList active={active}>
       {menus.map((menu) => (
-        <NavbarItem key={menu}>
-          <NavbarLink to="/">{menu}</NavbarLink>
+        <NavbarItem key={menu.path}>
+          <NavbarLink to={menu.path}>{menu.name}</NavbarLink>
         </NavbarItem>
       ))}
     </StyledNavbarList>
