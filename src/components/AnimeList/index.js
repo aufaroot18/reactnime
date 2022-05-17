@@ -9,23 +9,19 @@ import Flex from "../ui/Flex";
 import { useState } from "react";
 import Pagination, { PaginationItem } from "../ui/Pagination";
 import Box from "../ui/Box";
+import Error from "../ui/Error";
 
 export default function AnimeList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const queryVariables = {
+  const variables = {
     variables: {
       page: currentPage,
     },
   };
-  const { loading, error, data } = useQuery(GET_ANIME, queryVariables);
+  const { loading, error, data } = useQuery(GET_ANIME, variables);
 
   if (loading) return <Loading />;
-  if (error)
-    return (
-      <Heading variant="primary" align="center">
-        Something Error
-      </Heading>
-    );
+  if (error) return <Error />;
 
   const animes = data.Page.media;
   const page = data.Page.pageInfo;
