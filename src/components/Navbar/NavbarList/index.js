@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Button from "../../ui/Button";
 import Link from "../../ui/Link";
 import NavbarItem from "../NavbarItem";
 
@@ -33,16 +34,8 @@ function NavbarList({ active }) {
       path: "anime",
     },
     {
-      name: "Manga",
-      path: "manga",
-    },
-    {
       name: "Collections",
       path: "collections",
-    },
-    {
-      name: "About",
-      path: "about",
     },
   ];
 
@@ -55,6 +48,11 @@ function NavbarList({ active }) {
           </Link>
         </NavbarItem>
       ))}
+      <NavbarItem>
+        <Button as="a" target="_blank" href="https://aufaroot18.github.io/">
+          About Me
+        </Button>
+      </NavbarItem>
     </StyledNavbarList>
   );
 }
