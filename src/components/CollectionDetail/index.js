@@ -15,6 +15,7 @@ import { Input, Label } from "../ui/Forms";
 import Button from "../ui/Button";
 import { EditButton } from "./Index.styled";
 import Error from "../ui/Error";
+import AnimesContext from "../../contexts/AnimesContext";
 
 export default function CollectionDetail() {
   const { name } = useParams();
@@ -22,6 +23,10 @@ export default function CollectionDetail() {
   const [collection, setCollection] = useState({});
   const [newName, setCollectionName] = useState(name);
   const [modalEdit, setModalEdit] = useState(false);
+  const animeContextValue = {
+    animes,
+    setAnimes,
+  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getAnimeFromCollection, []);
@@ -74,35 +79,38 @@ export default function CollectionDetail() {
     );
 
   return (
-    <Section mb="3" mt="3">
-      <Box mb="0.5">
-        <Flex justifyContent="center" alignItems="center">
-          <Heading variant="primary" align="center">
-            {collection.name} Collection
-          </Heading>
-          <EditButton onClick={toggleEditModal} />
-        </Flex>
-      </Box>
-      <Paragraph mb="2" align="center" maxWidth="600" variant="gray">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab inventore
-        dolores, dolore est saepe explicabo eum similique consequuntur vitae et?
-      </Paragraph>
-      {animeList}
-      <Box>
-        <Modal isOpen={modalEdit} onRequestClose={toggleEditModal}>
-          <Heading variant="primary" mb="0.5" align="center">
-            Edit Collection
-          </Heading>
-          <Box>
-            <Label htmlFor="name">New Collection Name</Label>
-            <Input id="name" value={newName} onChange={handleChange} />
-          </Box>
-          <Flex justifyContent="center">
-            <Button onClick={editCollection}>Edit</Button>
-            <Button onClick={toggleEditModal}>Close</Button>
+    <AnimesContext.Provider value={animeContextValue}>
+      <Section mb="3" mt="3">
+        <Box mb="0.5">
+          <Flex justifyContent="center" alignItems="center">
+            <Heading variant="primary" align="center">
+              {collection.name} Collection
+            </Heading>
+            <EditButton onClick={toggleEditModal} />
           </Flex>
-        </Modal>
-      </Box>
-    </Section>
+        </Box>
+        <Paragraph mb="2" align="center" maxWidth="600" variant="gray">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab inventore
+          dolores, dolore est saepe explicabo eum similique consequuntur vitae
+          et?
+        </Paragraph>
+        {animeList}
+        <Box>
+          <Modal isOpen={modalEdit} onRequestClose={toggleEditModal}>
+            <Heading variant="primary" mb="0.5" align="center">
+              Edit Collection
+            </Heading>
+            <Box>
+              <Label htmlFor="name">New Collection Name</Label>
+              <Input id="name" value={newName} onChange={handleChange} />
+            </Box>
+            <Flex justifyContent="center">
+              <Button onClick={editCollection}>Edit</Button>
+              <Button onClick={toggleEditModal}>Close</Button>
+            </Flex>
+          </Modal>
+        </Box>
+      </Section>
+    </AnimesContext.Provider>
   );
 }
