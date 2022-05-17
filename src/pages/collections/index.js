@@ -1,3 +1,11 @@
+import CollectionList from "../../components/CollectionList";
+import Hero from "../../components/Hero";
+
 export default function index() {
-  return <h1>List Collections</h1>;
+  return (
+    <>
+      <Hero />
+      <CollectionList />
+    </>
+  );
 }
