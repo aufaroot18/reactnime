@@ -74,7 +74,7 @@ export default function CollectionList() {
               <CollectionCard key={collection.id} collection={collection} />
             ))
           ) : (
-            <Heading as="h4" variant="primary">
+            <Heading as="h4" variant="primary" align="center">
               Collections has not beed added
             </Heading>
           )}
