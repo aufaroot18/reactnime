@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getItemLocalStorage,
   setItemLocalStorage,
@@ -19,6 +19,7 @@ import AnimesContext from "../../contexts/AnimesContext";
 
 export default function CollectionDetail() {
   const { name } = useParams();
+  const navigate = useNavigate();
   const [animes, setAnimes] = useState([]);
   const [collection, setCollection] = useState({});
   const [newName, setCollectionName] = useState(name);
@@ -31,6 +32,9 @@ export default function CollectionDetail() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(getAnimeFromCollection, []);
 
+  /**
+   * GET LIST ANIME FROM COLLECTIONS (LOCAL STORAGE)
+   */
   function getAnimeFromCollection() {
     const items = getItemLocalStorage("collections");
     const collections = JSON.parse(items);
@@ -43,22 +47,40 @@ export default function CollectionDetail() {
     foundCollection ? setAnimes(foundCollection.anime) : setAnimes([]);
   }
 
+  /**
+   * Hanndle Change Name in Form.
+   * @param {object} e - object event
+   */
   function handleChange(e) {
     setCollectionName(e.target.value);
   }
 
+  /**
+   * EDIT COLLECTION
+   */
   function editCollection() {
-    setCollectionName(newName);
+    // GET COLLECTIONS FROM LOCALSTORAGE
     const items = getItemLocalStorage("collections");
     const collections = JSON.parse(items);
 
+    // FIND CURRENT COLLECTION AND UPDATE TO LOCALSTORAGE
     const foundCollection = collections.find((item) => item.name === name);
-
-    setCollection({ ...collection, name: newName });
     foundCollection.name = newName;
     setItemLocalStorage("collections", collections);
+
+    // UPDATE NEW NAME AND NEW COLLECTION TO STATE
+    setCollection({ ...collection, name: newName });
+    setCollectionName(newName);
+
+    toggleEditModal();
+
+    // NAVIGATE TO NEW NAME COLLECTION
+    navigate(`/collections/${newName}`, { replace: true });
   }
 
+  /**
+   * TOGGLE EDIT MODAL. TO SHOW AND HIDE EDIT MODAL
+   */
   function toggleEditModal() {
     setModalEdit((prevState) => !prevState);
   }
