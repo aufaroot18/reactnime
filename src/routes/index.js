@@ -10,9 +10,9 @@ export default function index() {
     <Routes>
       <Route path="/" element={<Anime />} />
       <Route path="/anime" element={<Anime />} />
-      <Route path="/anime/detail" element={<AnimeDetail />} />
+      <Route path="/anime/:id" element={<AnimeDetail />} />
       <Route path="/collections" element={<Collections />} />
-      <Route path="/collections/detail" element={<CollectionsDetail />} />
+      <Route path="/collections/:name" element={<CollectionsDetail />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
