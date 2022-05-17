@@ -1,3 +1,9 @@
+import AnimeDetail from "../../components/AnimeDetail";
+
 export default function Detail() {
-  return <h2>Detail Anime</h2>;
+  return (
+    <>
+      <AnimeDetail />
+    </>
+  );
 }
