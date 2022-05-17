@@ -7,6 +7,10 @@ import Image from "../ui/Image";
 import Section from "../ui/Section";
 import StyledHero from "./Index.styled";
 
+/**
+ * Hero Component
+ * @props {string} title - Hero title
+ */
 export default function Hero({ title = "Reactnime" }) {
   return (
     <>
