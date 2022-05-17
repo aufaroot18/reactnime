@@ -5,6 +5,9 @@ import Flex from "../ui/Flex";
 import Heading from "../ui/Heading";
 import StyledFooter from "./Index.styled";
 
+/**
+ * Footer Component
+ */
 export default function Footer() {
   return (
     <StyledFooter>
