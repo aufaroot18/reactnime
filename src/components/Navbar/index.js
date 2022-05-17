@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 import Brand from "./Brand";
-import NavbarLink from "./NavbarLink";
 import NavbarList from "./NavbarList";
 import NavbarItem from "./NavbarItem";
 import NavbarToggler from "./NavbarToggler";
@@ -40,4 +39,4 @@ export default function Navbar() {
   );
 }
 
-export { Brand, NavbarToggler, NavbarList, NavbarItem, NavbarLink };
+export { Brand, NavbarToggler, NavbarList, NavbarItem };

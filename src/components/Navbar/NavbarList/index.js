@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Link from "../../ui/Link";
 import NavbarItem from "../NavbarItem";
-import NavbarLink from "../NavbarLink";
 
 const StyledNavbarList = styled.ul`
   margin-top: 1rem;
@@ -50,7 +50,9 @@ function NavbarList({ active }) {
     <StyledNavbarList active={active}>
       {menus.map((menu) => (
         <NavbarItem key={menu.path}>
-          <NavbarLink to={menu.path}>{menu.name}</NavbarLink>
+          <Link to={menu.path} variant="white">
+            {menu.name}
+          </Link>
         </NavbarItem>
       ))}
     </StyledNavbarList>
