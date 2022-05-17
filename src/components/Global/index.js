@@ -34,6 +34,11 @@ const styles = css`
   h4 {
     font-size: 1.563rem;
   }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 
 export default function GlobalStyle() {

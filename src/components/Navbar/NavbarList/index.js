@@ -49,9 +49,13 @@ function NavbarList({ active }) {
         </NavbarItem>
       ))}
       <NavbarItem>
-        <Button as="a" target="_blank" href="https://aufaroot18.github.io/">
+        <a
+          target="_blank"
+          href="https://aufaroot18.github.io/"
+          rel="noreferrer"
+        >
           About Me
-        </Button>
+        </a>
       </NavbarItem>
     </StyledNavbarList>
   );
