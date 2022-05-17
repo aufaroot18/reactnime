@@ -5,7 +5,7 @@ import Section from "../../components/ui/Section";
 export default function Detail() {
   return (
     <Section>
-      <Hero />
+      <Hero title="Collections" />
       <CollectionDetail />
     </Section>
   );
