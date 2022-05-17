@@ -1,9 +1,16 @@
 import { gql } from "@apollo/client";
 
 const GET_ANIME = gql`
-  query {
-    Page(page: 1, perPage: 10) {
-      media(sort: TRENDING_DESC) {
+  query ($page: Int) {
+    Page(page: $page, perPage: 10) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      media(sort: SCORE_DESC, type: ANIME) {
         id
         title {
           english
@@ -20,6 +27,44 @@ const GET_ANIME = gql`
   }
 `;
 
+const GET_DETAIL_ANIME = gql`
+  query ($id: Int) {
+    Media(id: $id) {
+      id
+      title {
+        english
+      }
+      status
+      description
+      seasonYear
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      trailer {
+        id
+      }
+      coverImage {
+        extraLarge
+        large
+        medium
+        color
+      }
+      bannerImage
+      genres
+      averageScore
+      meanScore
+      duration
+    }
+  }
+`;
+
 const GET_CHARACTERS = gql`
   query {
     characters {
@@ -32,4 +77,4 @@ const GET_CHARACTERS = gql`
   }
 `;
 
-export { GET_ANIME, GET_CHARACTERS };
+export { GET_ANIME, GET_CHARACTERS, GET_DETAIL_ANIME };
