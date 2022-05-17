@@ -16,6 +16,7 @@ const Heading = styled.h2`
   color: ${({ variant }) => variant && VARIANTS[variant]};
   font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
   text-align: ${({ align }) => align && align};
+  text-transform: capitalize;
 `;
 
 export default Heading;
