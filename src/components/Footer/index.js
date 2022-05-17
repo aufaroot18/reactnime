@@ -1,44 +1,23 @@
-import styled from "@emotion/styled";
 import { NavbarList } from "../Navbar";
 import Box from "../ui/Box";
 import Container from "../ui/Container";
-
-const StyledFooter = styled.footer`
-  background-color: #073b4c;
-  color: #fff;
-
-  @media screen and (min-width: 768px) {
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-`;
-
-const Brand = styled.h2``;
-
-const Author = styled.h4`
-  font-weight: 500;
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-
-  @media screen and (min-width: 768px) {
-    & {
-      margin-bottom: 0;
-    }
-  }
-`;
+import Flex from "../ui/Flex";
+import Heading from "../ui/Heading";
+import StyledFooter from "./Index.styled";
 
 export default function Footer() {
   return (
     <StyledFooter>
       <Container>
-        <Box>
-          <Brand>Reactnime</Brand>
-          <Author>Developed by aufa</Author>
-        </Box>
-        <NavbarList active />
+        <Flex justifyContent="space-between" alignItems="center">
+          <Box>
+            <Heading fontSize="1.953">Reactnime</Heading>
+            <Heading as="h3" fontSize="1.25" weight="500">
+              Developed by Aufa
+            </Heading>
+          </Box>
+          <NavbarList active />
+        </Flex>
       </Container>
     </StyledFooter>
   );
