@@ -3,33 +3,26 @@ import Box from "../ui/Box";
 import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import Paragraph from "../ui/Paragraph";
+import HeroImage from "../../assets/img/movie.png";
+import Image from "../ui/Image";
 
 const StyledHero = styled.section`
   text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column-reverse;
 
+  img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   @media screen and (min-width: 992px) {
-    display: flex;
     flex-direction: row;
     text-align: left;
     justify-content: space-between;
     align-items: center;
-    gap: 5rem;
-  }
-`;
-
-const Image = styled.img`
-  border-radius: 10px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media screen and (min-width: 992px) {
-    margin-left: 0;
-    margin-right: 0;
   }
 `;
 
@@ -38,7 +31,7 @@ export default function Hero() {
     <>
       <StyledHero>
         <Box>
-          <Image src="https://picsum.photos/600/400" alt="hero" />
+          <Image src={HeroImage} alt="hero" />
         </Box>
         <Box mb="2">
           <Heading variant="primary" fontSize="3.815">
