@@ -9,18 +9,12 @@ import Flex from "../ui/Flex";
 import Heading from "../ui/Heading";
 import Paragraph from "../ui/Paragraph";
 import Section from "../ui/Section";
-import { FaEdit } from "react-icons/fa";
-import styled from "@emotion/styled";
 import Box from "../ui/Box";
 import Modal from "../ui/Modal";
 import { Input, Label } from "../ui/Forms";
 import Button from "../ui/Button";
-
-const EditButton = styled(FaEdit)`
-  color: #118ab2;
-  cursor: pointer;
-  font-size: 2rem;
-`;
+import { EditButton } from "./Index.styled";
+import Error from "../ui/Error";
 
 export default function CollectionDetail() {
   const { name } = useParams();
@@ -64,13 +58,20 @@ export default function CollectionDetail() {
     setModalEdit((prevState) => !prevState);
   }
 
-  if (!collection) {
-    return (
-      <Heading align="center" variant="primary">
-        {name} Collection Not Found
+  if (!collection) return <Error>{name} Collection Not Found</Error>;
+
+  const animeList =
+    animes.length > 0 ? (
+      <Flex>
+        {animes.map((anime) => (
+          <AnimeCard key={anime.id} anime={anime} />
+        ))}
+      </Flex>
+    ) : (
+      <Heading as="h4" variant="gray" align="center">
+        Anime has not been added
       </Heading>
     );
-  }
 
   return (
     <Section mb="3" mt="3">
@@ -82,21 +83,11 @@ export default function CollectionDetail() {
           <EditButton onClick={toggleEditModal} />
         </Flex>
       </Box>
-      <Paragraph mb="3" align="center" maxWidth="600" variant="gray">
+      <Paragraph mb="2" align="center" maxWidth="600" variant="gray">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab inventore
         dolores, dolore est saepe explicabo eum similique consequuntur vitae et?
       </Paragraph>
-      {animes.length > 0 ? (
-        <Flex>
-          {animes.map((anime) => (
-            <AnimeCard key={anime.id} anime={anime} />
-          ))}
-        </Flex>
-      ) : (
-        <Heading as="h4" variant="primary" align="center">
-          Anime has not been added
-        </Heading>
-      )}
+      {animeList}
       <Box>
         <Modal isOpen={modalEdit} onRequestClose={toggleEditModal}>
           <Heading variant="primary" mb="0.5" align="center">

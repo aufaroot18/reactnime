@@ -1,10 +1,8 @@
-import styled from "@emotion/styled";
 import Box from "../ui/Box";
 import Heading from "../ui/Heading";
 import Image from "../ui/Image";
 import Link from "../ui/Link";
 import Paragraph from "../ui/Paragraph";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import Modal from "../ui/Modal";
 import { useContext, useState } from "react";
@@ -16,49 +14,11 @@ import {
 } from "../../utils/helpers/localstorage";
 import CollectionContext from "../../contexts/CollectionsContext";
 import { Input, Label } from "../ui/Forms";
-
-const StyledCollectionCard = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding-right: 1rem;
-  align-items: center;
-  box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
-  border-radius: 10px;
-  overflow: hidden;
-  min-width: 250px;
-
-  h4::first-letter {
-    text-transform: uppercase;
-  }
-
-  img {
-    width: 100px;
-  }
-
-  button {
-    border-radius: 5px;
-    padding: 0.5rem 1.5rem;
-  }
-`;
-
-const EditButton = styled(FaEdit)`
-  color: #118ab2;
-  cursor: pointer;
-  font-size: 1.1rem;
-  margin-right: 1rem;
-`;
-
-const DeleteButton = styled(FaTrash)`
-  color: #ef476f;
-  cursor: pointer;
-  font-size: 1.1rem;
-`;
+import StyledCollectionCard, { DeleteButton, EditButton } from "./Index.styled";
 
 export default function CollectionCard({ collection }) {
   const location = useLocation();
   const { setCollections } = useContext(CollectionContext);
-
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [name, setName] = useState(collection.name);
@@ -87,6 +47,7 @@ export default function CollectionCard({ collection }) {
 
     setCollections([...collections]);
     setItemLocalStorage("collections", collections);
+    toggleEditModal();
   }
 
   function deleteCollection() {

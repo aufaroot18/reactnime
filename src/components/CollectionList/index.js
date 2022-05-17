@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
 import AddCollectionModal from "../AddCollectionModal";
@@ -12,18 +11,8 @@ import {
   setItemLocalStorage,
 } from "../../utils/helpers/localstorage";
 import CollectionContext from "../../contexts/CollectionsContext";
-import { FaPlus } from "react-icons/fa";
 import Box from "../ui/Box";
-
-const AddButton = styled(FaPlus)`
-  color: #fff;
-  cursor: pointer;
-  background-color: #06d6a0;
-  border-radius: 50px;
-  padding: 0.5rem;
-  width: 40px;
-  height: 40px;
-`;
+import { AddButton } from "./Index.styled";
 
 export default function CollectionList() {
   const [isModalOpen, setIsModalOpen] = useState(false);

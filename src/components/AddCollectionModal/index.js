@@ -42,7 +42,7 @@ export default function AddCollectionModal({
   }
 
   return (
-    <>
+    <Box>
       <Heading variant="primary" mb="1" align="center">
         Add Collection
       </Heading>
@@ -56,6 +56,6 @@ export default function AddCollectionModal({
           Close
         </Button>
       </form>
-    </>
+    </Box>
   );
 }
