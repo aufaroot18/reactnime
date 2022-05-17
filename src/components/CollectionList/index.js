@@ -24,6 +24,11 @@ export default function CollectionList() {
 
   useEffect(getCollections, []);
 
+  /**
+   * GET COLLECTOINS FROM LOCAL STORAGE.
+   * IF THERE COLLECTIONS(LOCAL STORAGE), SET TO COLLECTIONS STATE
+   * IF NO COLLECTION, SET NEW COLLECTIONS IN LOCAL STORAGE
+   */
   function getCollections() {
     const items = getItemLocalStorage("collections");
 
@@ -32,6 +37,9 @@ export default function CollectionList() {
       : setItemLocalStorage("collections", []);
   }
 
+  /**
+   * TOGGLE MODAL. SHOW AND HIDE MODAL WHEN CLICKED
+   */
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
   }
