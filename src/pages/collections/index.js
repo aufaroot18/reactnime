@@ -4,7 +4,7 @@ import Hero from "../../components/Hero";
 export default function index() {
   return (
     <>
-      <Hero />
+      <Hero title="Collections" />
       <CollectionList />
     </>
   );

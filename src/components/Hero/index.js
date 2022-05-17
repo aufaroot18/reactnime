@@ -26,7 +26,7 @@ const StyledHero = styled.section`
   }
 `;
 
-export default function Hero() {
+export default function Hero({ title = "Reactnime" }) {
   return (
     <>
       <StyledHero>
@@ -35,7 +35,7 @@ export default function Hero() {
         </Box>
         <Box mb="2">
           <Heading variant="primary" fontSize="3.815">
-            Reactnime
+            {title}
           </Heading>
           <Heading as="h3" variant="gray" weight="500" mb="1">
             Next-gen anime platform
