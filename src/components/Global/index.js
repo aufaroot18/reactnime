@@ -41,6 +41,9 @@ const styles = css`
   }
 `;
 
+/**
+ * Global Style. Apply global style to App.
+ */
 export default function GlobalStyle() {
   return <Global styles={styles} />;
 }
