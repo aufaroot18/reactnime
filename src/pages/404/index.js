@@ -1,3 +1,5 @@
+import Heading from "../../components/ui/Heading";
+
 export default function index() {
-  return <h1>404 Not Found</h1>;
+  return <Heading>404 Not Found</Heading>;
 }
