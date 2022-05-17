@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { GET_DETAIL_ANIME } from "../../graphql/queries";
 import CollectionCard from "../CollectionCard";
@@ -14,57 +13,36 @@ import Image from "../ui/Image";
 import Flex from "../ui/Flex";
 import Modal from "../ui/Modal";
 import AddCollectionModal from "../AddCollectionModal";
-
-const StyledAnimeDetail = styled.div`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-
-  img {
-    border-radius: 10px;
-    max-width: 250px;
-    width: 100%;
-    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
-  }
-
-  @media screen and (min-width: 768px) {
-    img {
-      max-width: 300px;
-    }
-  }
-`;
-
-const Cover = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  align-items: center;
-`;
+import StyledAnimeDetail, {
+  Cover,
+  CoverImage,
+  CoverInfo,
+} from "./Index.styled";
 
 export default function AnimeDetail() {
-  const [collections, setCollections] = useState([]);
-
-  useEffect(() => {
-    const items = localStorage.getItem("collections");
-    setCollections(JSON.parse(items));
-  }, []);
-
   const { id } = useParams();
-
+  const [collections, setCollections] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  function toggleModal() {
-    setIsModalOpen(!isModalOpen);
-  }
-
   const queryVariables = {
     variables: {
       id,
     },
   };
   const { loading, error, data } = useQuery(GET_DETAIL_ANIME, queryVariables);
-  const anime = data && data.Media;
+
+  useEffect(() => {
+    const items = localStorage.getItem("collections");
+    setCollections(JSON.parse(items));
+  }, []);
+
+  function toggleModal() {
+    setIsModalOpen(!isModalOpen);
+  }
 
   if (loading) return <Loading />;
   if (error) return "There is error";
+
+  const anime = data.Media;
 
   const filteredCollections = collections.filter((collection) => {
     return collection.anime.find((item) => {
@@ -80,10 +58,10 @@ export default function AnimeDetail() {
     <Section mb="3" mt="3">
       <StyledAnimeDetail>
         <Cover>
-          <Box>
+          <CoverImage>
             <Image src={anime.coverImage.extraLarge} />
-          </Box>
-          <Box>
+          </CoverImage>
+          <CoverInfo>
             <Heading as="h2" variant="primary" mb="0.5">
               {anime.title.english}
             </Heading>
@@ -111,10 +89,10 @@ export default function AnimeDetail() {
               Trailer
             </Button>
             <Button onClick={toggleModal}>Add Collection</Button>
-          </Box>
+          </CoverInfo>
         </Cover>
         <Box mb="2">
-          <Heading as="h4" mb="0.5" variant="gray">
+          <Heading as="h3" mb="0.5" variant="gray" align="center">
             Description
           </Heading>
           <Paragraph
@@ -123,10 +101,10 @@ export default function AnimeDetail() {
           />
         </Box>
         <Box>
-          <Heading as="h4" mb="0.5" variant="gray">
+          <Heading as="h3" mb="1" variant="gray" align="center">
             Collections
           </Heading>
-          <Flex>
+          <Flex justifyContent="center">
             {filteredCollections.length > 0 ? (
               listCollections
             ) : (
