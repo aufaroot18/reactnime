@@ -20,8 +20,6 @@ export default function AddCollectionModal({
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(collections);
-
     const isCollectoinExist = collections.find(
       (collection) => name.toLowerCase() === collection.name.toLowerCase()
     );
@@ -38,6 +36,7 @@ export default function AddCollectionModal({
     }
 
     localStorage.setItem("collections", JSON.stringify(collections));
+    toggleModal();
 
     setName("");
   }
