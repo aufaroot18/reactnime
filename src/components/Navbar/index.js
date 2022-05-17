@@ -10,6 +10,7 @@ import StyledNavbar from "./Index.styled";
 export default function Navbar() {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
 
+  /** Toggle navbar. Make navbar can show and hide when clicked. */
   function handleNavbar() {
     setIsNavbarActive((prevState) => !prevState);
   }
