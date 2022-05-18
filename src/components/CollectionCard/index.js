@@ -23,41 +23,71 @@ export default function CollectionCard({ collection }) {
   const [modalEdit, setModalEdit] = useState(false);
   const [name, setName] = useState(collection.name);
 
+  /**
+   * handle input form
+   * @param {object} e - event objecy
+   */
   function handleChange(e) {
     setName(e.target.value);
   }
 
+  /**
+   * TOGGLE MODAL DELETE
+   */
   function toggleDeleteModal() {
     setModalDelete((prevState) => !prevState);
   }
 
+  /**
+   * TOGGLE MODAL EDIT
+   */
   function toggleEditModal() {
     setModalEdit((prevState) => !prevState);
   }
 
-  function editCollection() {
+  /**
+   * GET COLLECTIONS FROM LS
+   */
+
+  function getCollectionsLocalStorage() {
     const items = getItemLocalStorage("collections");
     const collections = JSON.parse(items);
+    return collections;
+  }
 
+  /**
+   * EDIT COLLECTION
+   */
+  function editCollection() {
+    const collections = getCollectionsLocalStorage();
+
+    // UPDATE THIS NAME COLLECTION
     const foundCollection = collections.find(
       (item) => item.name === collection.name
     );
-
     foundCollection.name = name;
 
+    // UPDATE COLLECTIONS TO STATE AND LS
     setCollections([...collections]);
     setItemLocalStorage("collections", collections);
+
     toggleEditModal();
   }
 
+  /**
+   * DELETE COLLECTION
+   */
   function deleteCollection() {
-    const items = getItemLocalStorage("collections");
-    const collections = JSON.parse(items);
-    const filteredCollections = collections.filter(
+    const collections = getCollectionsLocalStorage();
+
+    // DELETE THIS COLLECTION FROM COLLECTIONS
+    const newCollections = collections.filter(
       (item) => item.name !== collection.name
     );
-    setCollections(filteredCollections);
-    setItemLocalStorage("collections", filteredCollections);
+
+    // UPDATE NEW COLLECTIONS TO STATE AND LS
+    setCollections(newCollections);
+    setItemLocalStorage("collections", newCollections);
   }
 
   if (!collection) return <Heading>Collection not found</Heading>;
