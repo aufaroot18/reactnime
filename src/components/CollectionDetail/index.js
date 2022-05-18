@@ -24,6 +24,7 @@ export default function CollectionDetail() {
   const [collection, setCollection] = useState({});
   const [newName, setCollectionName] = useState(name);
   const [modalEdit, setModalEdit] = useState(false);
+  const [nameError, setNameError] = useState(false);
   const animeContextValue = {
     animes,
     setAnimes,
@@ -59,23 +60,41 @@ export default function CollectionDetail() {
    * EDIT COLLECTION
    */
   function editCollection() {
-    // GET COLLECTIONS FROM LOCALSTORAGE
+    if (validation()) {
+      const collections = getCollectionsLocalStorage();
+
+      // FIND CURRENT COLLECTION AND UPDATE TO LOCALSTORAGE
+      const foundCollection = collections.find((item) => item.name === name);
+      foundCollection.name = newName;
+      setItemLocalStorage("collections", collections);
+
+      // UPDATE NEW NAME AND NEW COLLECTION TO STATE
+      setCollection({ ...collection, name: newName });
+      setCollectionName(newName);
+
+      toggleEditModal();
+
+      // NAVIGATE TO NEW NAME COLLECTION
+      navigate(`/collections/${newName}`, { replace: true });
+
+      setNameError(false);
+    }
+  }
+
+  // GET COLLECTIONS FROM LOCALSTORAGE
+  function getCollectionsLocalStorage() {
     const items = getItemLocalStorage("collections");
     const collections = JSON.parse(items);
+    return collections;
+  }
 
-    // FIND CURRENT COLLECTION AND UPDATE TO LOCALSTORAGE
-    const foundCollection = collections.find((item) => item.name === name);
-    foundCollection.name = newName;
-    setItemLocalStorage("collections", collections);
-
-    // UPDATE NEW NAME AND NEW COLLECTION TO STATE
-    setCollection({ ...collection, name: newName });
-    setCollectionName(newName);
-
-    toggleEditModal();
-
-    // NAVIGATE TO NEW NAME COLLECTION
-    navigate(`/collections/${newName}`, { replace: true });
+  // CHECK VALIDATION INPUT
+  function validation() {
+    if (newName === "") {
+      setNameError(true);
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -124,8 +143,16 @@ export default function CollectionDetail() {
             </Heading>
             <Box>
               <Label htmlFor="name">New Collection Name</Label>
-              <Input id="name" value={newName} onChange={handleChange} />
+              <Input
+                id="name"
+                value={newName}
+                onChange={handleChange}
+                required
+              />
             </Box>
+            {nameError && (
+              <Paragraph variant="danger">Name is required</Paragraph>
+            )}
             <Flex justifyContent="center">
               <Button onClick={editCollection}>Edit</Button>
               <Button onClick={toggleEditModal}>Close</Button>

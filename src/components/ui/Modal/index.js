@@ -6,6 +6,7 @@ const Modal = styled(ReactModal)`
   background: rgb(255, 255, 255);
   padding: 1rem;
   overflow: auto;
+  outline: none;
   border-radius: 10px;
   top: 20%;
   left: 50%;

@@ -22,6 +22,7 @@ export default function CollectionCard({ collection }) {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [name, setName] = useState(collection.name);
+  const [nameError, setNameError] = useState(false);
 
   /**
    * handle input form
@@ -59,19 +60,31 @@ export default function CollectionCard({ collection }) {
    * EDIT COLLECTION
    */
   function editCollection() {
-    const collections = getCollectionsLocalStorage();
+    if (validation()) {
+      const collections = getCollectionsLocalStorage();
 
-    // UPDATE THIS NAME COLLECTION
-    const foundCollection = collections.find(
-      (item) => item.name === collection.name
-    );
-    foundCollection.name = name;
+      // UPDATE THIS NAME COLLECTION
+      const foundCollection = collections.find(
+        (item) => item.name === collection.name
+      );
+      foundCollection.name = name;
 
-    // UPDATE COLLECTIONS TO STATE AND LS
-    setCollections([...collections]);
-    setItemLocalStorage("collections", collections);
+      // UPDATE COLLECTIONS TO STATE AND LS
+      setCollections([...collections]);
+      setItemLocalStorage("collections", collections);
 
-    toggleEditModal();
+      toggleEditModal();
+      setNameError(false);
+    }
+  }
+
+  // CHECK VALIDATION INPUT
+  function validation() {
+    if (name === "") {
+      setNameError(true);
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -134,12 +147,17 @@ export default function CollectionCard({ collection }) {
           </Heading>
           <Box>
             <Label htmlFor="name">New Collection Name</Label>
-            <Input id="name" value={name} onChange={handleChange} />
+            <Input id="name" value={name} onChange={handleChange} required />
           </Box>
-          <Flex justifyContent="center">
-            <Button onClick={editCollection}>Edit</Button>
-            <Button onClick={toggleEditModal}>Close</Button>
-          </Flex>
+          {nameError && (
+            <Paragraph variant="danger">Name is required</Paragraph>
+          )}
+          <Box mt="1">
+            <Flex justifyContent="center">
+              <Button onClick={editCollection}>Edit</Button>
+              <Button onClick={toggleEditModal}>Close</Button>
+            </Flex>
+          </Box>
         </Modal>
       </Box>
     </StyledCollectionCard>

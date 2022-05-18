@@ -68,9 +68,7 @@ export default function AddCollectionModal({
    * CHECK VALIDATION FORM
    */
   function validation() {
-    console.log("validation");
     if (name === "") {
-      console.log("kosong");
       setNameError(true);
       return false;
     }
