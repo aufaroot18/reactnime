@@ -23,36 +23,50 @@ export default function AnimeDetail() {
   const { id } = useParams();
   const [collections, setCollections] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const queryVariables = {
+  const variables = {
     variables: {
       id,
     },
   };
-  const { loading, error, data } = useQuery(GET_DETAIL_ANIME, queryVariables);
+  const { loading, error, data } = useQuery(GET_DETAIL_ANIME, variables);
+  const anime = data && data.Media;
 
-  useEffect(() => {
+  useEffect(getCollectionsLocalStorage, []);
+
+  // RENDER LOADING AND ERROR
+  if (loading) return <Loading />;
+  if (error) return "There is error";
+
+  function getCollectionsLocalStorage() {
     const items = localStorage.getItem("collections");
-    setCollections(JSON.parse(items));
-  }, []);
+    const collections = JSON.parse(items);
+    setCollections(collections);
+  }
 
+  // TOGGLE MODAL. SHOW AND HIDE ADD COLLECTION MODAL
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
   }
 
-  if (loading) return <Loading />;
-  if (error) return "There is error";
-
-  const anime = data.Media;
-
-  const filteredCollections = collections.filter((collection) => {
-    return collection.anime.find((item) => {
-      return item.title.english === anime.title.english;
+  // GET COLLECTIONS FROM THIS ANIME
+  function getAnimeCollections() {
+    const filterredColections = collections.filter((collection) => {
+      return collection.anime.find((item) => {
+        return item.title.english === anime.title.english;
+      });
     });
-  });
+    return filterredColections;
+  }
 
-  const listCollections = filteredCollections.map((collection) => (
-    <CollectionCard key={collection.id} collection={collection} />
-  ));
+  // RENDER COLLECTIONS FROM THIS ANIME.
+  const animeCollections = getAnimeCollections();
+  const listCollections = !animeCollections.length ? (
+    <Paragraph>Collection has not been added. Try to add collection</Paragraph>
+  ) : (
+    animeCollections.map((collection) => (
+      <CollectionCard key={collection.id} collection={collection} />
+    ))
+  );
 
   return (
     <Section mb="3" mt="3">
@@ -104,15 +118,7 @@ export default function AnimeDetail() {
           <Heading as="h3" mb="1" variant="gray" align="center">
             Collections
           </Heading>
-          <Flex justifyContent="center">
-            {filteredCollections.length > 0 ? (
-              listCollections
-            ) : (
-              <Paragraph>
-                Collection has not been added. Try to add collection
-              </Paragraph>
-            )}
-          </Flex>
+          <Flex justifyContent="center">{listCollections}</Flex>
         </Box>
       </StyledAnimeDetail>
       <Modal isOpen={isModalOpen} onRequestClose={toggleModal}>
