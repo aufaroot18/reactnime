@@ -5,6 +5,7 @@ const VARIANTS = {
   secondary: "#118AB2",
   black: "#073B4C",
   gray: "#64748B",
+  danger: "#EF476F",
 };
 
 const Heading = styled.h2`
