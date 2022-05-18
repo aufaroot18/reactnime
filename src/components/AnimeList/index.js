@@ -19,17 +19,23 @@ export default function AnimeList() {
     },
   };
   const { loading, error, data } = useQuery(GET_ANIME, variables);
+  const animes = data && data.Page.media;
+  const page = data && data.Page.pageInfo;
 
+  // RENDER LOADING AND ERROR
   if (loading) return <Loading />;
   if (error) return <Error />;
 
-  const animes = data.Page.media;
-  const page = data.Page.pageInfo;
-
+  /**
+   * PAGINATION TO THE NEXT PAGE
+   */
   function nextPage() {
     page.hasNextPage && setCurrentPage((prevState) => prevState + 1);
   }
 
+  /**
+   * PAGINATION TO THE PREV PAGE
+   */
   function prevPage() {
     currentPage > 1 && setCurrentPage((prevState) => prevState - 1);
   }
