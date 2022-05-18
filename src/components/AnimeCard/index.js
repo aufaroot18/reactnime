@@ -15,11 +15,14 @@ import {
 } from "../../utils/helpers/localstorage";
 
 export default function AnimeCard({ anime }) {
+  const [removeModal, setRemoveModal] = useState(false);
   const { animes, setAnimes } = useContext(AnimesContext);
   const { pathname } = useLocation();
   const isAtCollection = pathname.includes("/collections");
-  const [removeModal, setRemoveModal] = useState(false);
 
+  /**
+   * REMOVE ANIME FROM THIS COLLECTION
+   */
   function removeAnime() {
     // REMOVE THIS ANIME FROM LIST ANIME
     const newAnimes = animes.filter(
@@ -28,15 +31,28 @@ export default function AnimeCard({ anime }) {
     setAnimes([...newAnimes]);
 
     // SET NEW ANIMES TO THIS COLLECTION
-    const item = getItemLocalStorage("collections");
-    const collections = JSON.parse(item);
+    const collections = getCollectionsLocalStorage();
     const collection = collections.find((collection) =>
       pathname.includes(collection.name)
     );
     collection.anime = [...newAnimes];
+
+    // UPDATE NEW COLLECTIONS TO LOCALSTORAGE
     setItemLocalStorage("collections", collections);
   }
 
+  /**
+   * GET COLLECTIONS FROM LOCALSTORAGE
+   */
+  function getCollectionsLocalStorage() {
+    const item = getItemLocalStorage("collections");
+    const collections = JSON.parse(item);
+    return collections;
+  }
+
+  /**
+   * TOGGLE MODAL. SHOW AND HIDE REMOVE MODAL
+   */
   function toggleRemoveModal() {
     setRemoveModal((prevState) => !prevState);
   }
